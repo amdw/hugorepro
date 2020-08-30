@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>{{.Page.Title}}</title>
+    </head>
+    <body>
+        <h1>{{.Page.Title}}</h1>
+        {{.Page.Content}}
+        <ul>
+            {{ $paginator := cond (eq .Parent.Section "news") (.Paginator) (.Paginate .RegularPagesRecursive) }}
+            {{ range $paginator.Pages }}
+            <li><a href="{{.Permalink}}">{{.Title}}</a></li>
+            {{ end }}
+        </ul>
+        {{ template "_internal/pagination.html" . }}
+        <p>RegularPagesRecursive has {{len .RegularPagesRecursive}} items</p>
+    </body>
+</html>
