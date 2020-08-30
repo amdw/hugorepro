@@ -5,13 +5,14 @@
     <body>
         <h1>{{.Page.Title}}</h1>
         {{.Page.Content}}
+        {{ $paginator := cond (eq .Parent.Section "news") (.Paginator) (.Paginate .RegularPagesRecursive) }}
+        <p>There are {{$paginator.TotalNumberOfElements}} total elements in the paginator.</p>
         <ul>
-            {{ $paginator := cond (eq .Parent.Section "news") (.Paginator) (.Paginate .RegularPagesRecursive) }}
             {{ range $paginator.Pages }}
             <li><a href="{{.Permalink}}">{{.Title}}</a></li>
             {{ end }}
         </ul>
         {{ template "_internal/pagination.html" . }}
-        <p>RegularPagesRecursive has {{len .RegularPagesRecursive}} items</p>
+        <p>RegularPagesRecursive has {{len .RegularPagesRecursive}} items; Pages has {{len .Pages}}.</p>
     </body>
 </html>
