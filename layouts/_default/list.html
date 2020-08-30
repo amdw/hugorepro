@@ -5,7 +5,7 @@
     <body>
         <h1>{{.Page.Title}}</h1>
         {{.Page.Content}}
-        {{ $paginator := cond (eq .Parent.Section "news") (.Paginator) (.Paginate .RegularPagesRecursive) }}
+        {{ $paginator := .Paginate .RegularPagesRecursive }}
         <p>There are {{$paginator.TotalNumberOfElements}} total elements in the paginator.</p>
         <ul>
             {{ range $paginator.Pages }}
